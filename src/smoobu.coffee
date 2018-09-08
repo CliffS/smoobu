@@ -17,11 +17,13 @@ class Smoobu
   get: (path..., search) ->
     uri = new URL HOST
     if typeof search is 'object'
-      urilsearch = new URLSearchParams search
+      uri.search = new URLSearchParams search
     else
       path.push search
     uri.pathname = Path.join  path...
     Request
+      # proxy: 'http://localhost:8888'
+      strictSSL: false
       url: uri
       json: true
       headers:
@@ -30,12 +32,11 @@ class Smoobu
   post: (path..., params) ->
     uri = new URL HOST
     uri.pathname = Path.join path...
-    params.customerId = @customerID.toString()
+    params.customerId = @customerID
     params.verificationHash = @verificationHash
-    search = new URLSearchParams params
-    search.sort()
-    console.log params
     Request
+      proxy: 'http://localhost:8888'
+      strictSSL: false
       uri: uri
       json: true
       method: 'POST'
@@ -48,9 +49,25 @@ class Smoobu
       departureDate:  fixdate departure
       apartments: apartments
 
-  reservations: (id) ->
-    @get 'api', 'apartment', id.toString(), 'booking',
-      showCancellation: true
+  getReservations: (params, page) ->
+    @get 'api', 'apartment', id.toString(), 'booking', params
+    .then (result) =>
+      result.bookings
+
+  reservations: (id, start, end) ->
+    Promise.resolve()
+    .then =>
+      params = {}
+      params.showCancellation = false
+      params.from = fixdate start if start
+      params.to = fixdate end if end
+      bookings = []
+      loop
+        result = await @get 'api', 'apartment', id.toString(), 'booking', params
+        bookings.push result.bookings...
+        params.page = result.page + 1
+        break if result.page is result.page_count
+      bookings
 
 
   apartments: ->
