@@ -1,6 +1,6 @@
 {
   "name": "smoobu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple library to access the Smoobu Host API",
   "#main": "lib/smoobu.js",
   "main": "src/smoobu.coffee",
