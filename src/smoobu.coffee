@@ -54,7 +54,7 @@ class Smoobu
     .then (result) =>
       result.bookings
 
-  reservations: (id, start, end, cancelleations = true) ->
+  reservations: (id, start, end, cancellations = true) ->
     Promise.resolve()
     .then =>
       params = {}
