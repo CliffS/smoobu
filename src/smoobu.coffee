@@ -35,7 +35,7 @@ class Smoobu
     params.customerId = @customerID
     params.verificationHash = @verificationHash
     Request
-      proxy: 'http://localhost:8888'
+      # proxy: 'http://localhost:8888'
       strictSSL: false
       uri: uri
       json: true
@@ -54,11 +54,11 @@ class Smoobu
     .then (result) =>
       result.bookings
 
-  reservations: (id, start, end) ->
+  reservations: (id, start, end, cancelleations = true) ->
     Promise.resolve()
     .then =>
       params = {}
-      params.showCancellation = false
+      params.showCancellation = cancellations
       params.from = fixdate start if start
       params.to = fixdate end if end
       bookings = []
