@@ -1,4 +1,4 @@
-Request = require 'request-promise-native'
+Bent    = require 'bent'
 { URL, URLSearchParams } = require 'url'
 Path    = require 'path'
 util    = require 'util'
@@ -12,37 +12,29 @@ fixdate = (date) ->
 
 class Smoobu
 
-  constructor: (@apiKey, @customerID, @verificationHash) ->
+  constructor: (apiKey, @customerID, @verificationHash) ->
+    @GET  = Bent HOST, 'GET',  'json', 'API-KEY': apiKey
+    @POST = Bent HOST, 'POST', 'json', 'API-KEY': apiKey
 
   get: (path..., search) ->
-    uri = new URL HOST
     if typeof search is 'object'
-      uri.search = new URLSearchParams search
+      search = new URLSearchParams search
     else
       path.push search
-    uri.pathname = Path.join  path...
-    Request
-      # proxy: 'http://localhost:8888'
-      strictSSL: false
-      url: uri
-      json: true
-      headers:
-        'API-Key': @apiKey
+      search = undefined
+    path = path.join '/'
+    @GET path
 
-  post: (path..., params) ->
-    uri = new URL HOST
-    uri.pathname = Path.join path...
+  post: (path..., params = {}) ->
+    path = path.join '/'
     params.customerId = @customerID
     params.verificationHash = @verificationHash
-    Request
-      # proxy: 'http://localhost:8888'
-      strictSSL: false
-      uri: uri
-      json: true
-      method: 'POST'
-      body: params
+    @POST path, params
 
-  availability: (arrival, departure, apartments) ->
+  user: ->
+    @get 'api', 'me'
+
+  availability: (arrival, departure, apartments = []) ->
     apartments = [ apartments ] unless Array.isArray apartments
     @post 'booking', 'checkApartmentAvailability',
       arrivalDate:  fixdate arrival
