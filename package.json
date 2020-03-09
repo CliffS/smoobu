@@ -29,6 +29,6 @@
     "coffeescript": "^2.5.1"
   },
   "dependencies": {
-    "bent": "^7.1.0"
+    "bent": "^7.1.1"
   }
 }
