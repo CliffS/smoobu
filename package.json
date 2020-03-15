@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
     "compile": "coffee -c -o lib src",
-    "prepublishOnly": "npm run-script compile"
+    "prepublishOnly": "npm run-script lint && npm run-script compile",
+    "lint": "coffeelint src/*.coffee"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/CliffS/smoobu#readme",
   "devDependencies": {
+    "coffeelint": "^2.1.0",
     "coffeescript": "^2.5.1"
   },
   "dependencies": {

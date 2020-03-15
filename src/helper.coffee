@@ -11,4 +11,3 @@ exports.fixdate = (date) ->
   if date instanceof Date
     return date.ymd()
   throw new Error "Invalid date passed: #{date}"
-

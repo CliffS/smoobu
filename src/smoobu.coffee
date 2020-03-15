@@ -32,7 +32,7 @@ class Smoobu
       search = ''
     path = path.join '/'
     path = path + '?' + search if search
-    console.log 'GET PATH', path
+    # console.log 'GET PATH', path
     @GET path
     .catch (err) =>
       if err.statusCode
@@ -65,7 +65,7 @@ class Smoobu
     .then (id) =>
       path = path.join '/'
       params.customerId = id
-      console.log 'POST PATH', path
+      # console.log 'POST PATH', path
       @POST path, params
     .catch (err) =>
       body = await err.responseBody
@@ -77,7 +77,7 @@ class Smoobu
     @get 'api', 'me'
 
   availability: (arrival, departure, apartments = []) ->
-    console.log typeof arrival
+    # console.log typeof arrival
     apartments = [ apartments ] unless Array.isArray apartments
     @post 'booking', 'checkApartmentAvailability',
       arrivalDate:  fixdate arrival
@@ -123,7 +123,7 @@ class Smoobu
 
   getRates: (start, end, apartments) ->
     apartments = [ apartments ] unless Array.isArray apartments
-    console.log apartments
+    # console.log apartments
     params =
       start_date: fixdate start
       end_date: fixdate end
@@ -151,7 +151,7 @@ class Smoobu
       apartments
 
   apartment: (id) ->
-    console.log 'ID', id
+    # console.log 'ID', id
     @get 'api', 'apartments', id
 
   messages: (id, onlyGuest = false) ->
