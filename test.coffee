@@ -1,14 +1,25 @@
 #!/usr/bin/env coffee
 
 Smoobu = require './src/smoobu'
+Tunnel = require 'tunnel'
+fs = require 'fs'
 
 SMOOBU = require './smoobu'     # the json file
 
-smoobu = new Smoobu SMOOBU.key, SMOOBU.id, SMOOBU.hash
-
 today = new Date
-days2 = new Date().setDate today.getDate() + 2
-days4 = new Date().setDate today.getDate() + 4
+days2 = new Date()
+days2.setDate today.getDate() + 2
+days4 = new Date()
+days4.setDate today.getDate() + 4
+
+tunnel = Tunnel.httpsOverHttp
+  proxy:
+    host: '5.189.134.87'
+    port: 3128
+  # ca: fs.readFileSync '/home/cliff/.charles/ca/charles-proxy-ssl-proxying-certificate.pem'
+
+console.log "tunnel", tunnel
+smoobu = new Smoobu SMOOBU.key, tunnel
 
 smoobu.user()
 .then (result) ->
@@ -16,5 +27,34 @@ smoobu.user()
   smoobu.availability days2, days4
 .then (result) ->
   console.log result
+  smoobu.apartments()
+.then (result) ->
+  console.log result
+  # Promise.all (smoobu.apartment id for id in Object.keys result)
+  smoobu.apartment 24975
+.then (result) ->
+  console.log result
+  smoobu.getBookings
+    from: '2020-01-01'
+    to:   '2020-02-29'
+    showCancellation: true
+.then (result) ->
+  console.log "getBookings:", result.total_items
+  smoobu.reservations 24975, '2019-01-01', '2019-12-31', false
+.then (result) ->
+  console.log "Total reservations:", result.length
+  smoobu.reservation 1503312
+.then (result) ->
+  console.log result
+  smoobu.messages 2838737
+.then (result) ->
+  console.log result
+  console.log m.message for m in result
+  smoobu.getRates '2020-12-01', '2021-01-31', 24975
+.then (result) ->
+  console.log result
+  Rate = Smoobu.Rate
+  rate = new Rate  '2020-12-01', '2021-01-31'
+  console.log rate
 .catch (err) ->
   console.log err
