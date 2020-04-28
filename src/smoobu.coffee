@@ -10,7 +10,6 @@ HOST = 'https://login.smoobu.com/'
 class Smoobu
 
   constructor: (apiKey, proxy) ->
-    console.log typeof proxy
     headers =
       'API-KEY': apiKey
       'Cache-Control': 'no-cache'
