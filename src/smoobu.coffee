@@ -9,13 +9,19 @@ HOST = 'https://login.smoobu.com/'
 
 class Smoobu
 
-  constructor: (apiKey) ->
+  constructor: (apiKey, proxy) ->
+    console.log typeof proxy
     headers =
       'API-KEY': apiKey
       'Cache-Control': 'no-cache'
-    @GET  = Bent HOST, 'GET',    'json', headers
-    @POST = Bent HOST, 'POST',   'json', headers
-    @DEL  = Bent HOST, 'DELETE', 'json', headers
+    if proxy
+      @GET  = Bent HOST, 'GET',    'json', headers, proxy
+      @POST = Bent HOST, 'POST',   'json', headers, proxy
+      @DEL  = Bent HOST, 'DELETE', 'json', headers, proxy
+    else
+      @GET  = Bent HOST, 'GET',    'json', headers
+      @POST = Bent HOST, 'POST',   'json', headers
+      @DEL  = Bent HOST, 'DELETE', 'json', headers
 
   Object.defineProperty @, 'Rate', value: Rate
 
@@ -134,7 +140,7 @@ class Smoobu
 
   setRates: (rates, apartments) ->
     Promise.resolve()
-    .then ->
+    .then =>
       rates = [ rates ] unless Array.isArray rates
       apartments = [ apartments ] unless Array.isArray apartments
       unless rates.every (r) -> r.constructor.name is 'Rate'
@@ -145,7 +151,7 @@ class Smoobu
 
   apartments: ->
     @get 'api', 'apartments'
-    .then (result) ->
+    .then (result) =>
       apartments = {}
       apartments[app.id] = app.name for app in result.apartments
       apartments

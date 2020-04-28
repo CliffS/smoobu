@@ -7,8 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
-    "compile": "coffee -c -o lib src",
-    "prepublishOnly": "exit 1 && npm run-script lint && npm run-script compile",
+    "build": "coffee -c -o lib src",
+    "prepublishOnly": "exit 1 && npm run-script lint && npm run-script build",
     "lint": "coffeelint src/*.coffee"
   },
   "repository": {
@@ -31,6 +31,8 @@
     "coffeescript": "^2.5.1"
   },
   "dependencies": {
-    "bent": "^7.1.1"
+    "bent": "github:CliffS/bent",
+    "minimist": "^1.2.5",
+    "tunnel": "0.0.6"
   }
 }

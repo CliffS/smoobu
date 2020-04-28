@@ -1,16 +1,25 @@
 #!/usr/bin/env coffee
 
 Smoobu = require './src/smoobu'
+Tunnel = require 'tunnel'
+fs = require 'fs'
 
 SMOOBU = require './smoobu'     # the json file
-
-smoobu = new Smoobu SMOOBU.key
 
 today = new Date
 days2 = new Date()
 days2.setDate today.getDate() + 2
 days4 = new Date()
 days4.setDate today.getDate() + 4
+
+tunnel = Tunnel.httpsOverHttp
+  proxy:
+    host: '5.189.134.87'
+    port: 3128
+  # ca: fs.readFileSync '/home/cliff/.charles/ca/charles-proxy-ssl-proxying-certificate.pem'
+
+console.log "tunnel", tunnel
+smoobu = new Smoobu SMOOBU.key, tunnel
 
 smoobu.user()
 .then (result) ->
