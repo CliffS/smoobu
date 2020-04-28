@@ -31,8 +31,6 @@
     "coffeescript": "^2.5.1"
   },
   "dependencies": {
-    "bent": "github:CliffS/bent",
-    "minimist": "^1.2.5",
-    "tunnel": "0.0.6"
+    "bent": "github:CliffS/bent"
   }
 }
