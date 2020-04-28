@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
     "build": "coffee -c -o lib src",
-    "prepublishOnly": "exit 1 && npm run-script lint && npm run-script build",
+    "prepublishOnly": "npm run-script lint && npm run-script build",
     "lint": "coffeelint src/*.coffee"
   },
   "repository": {
