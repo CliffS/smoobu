@@ -2,8 +2,7 @@
   "name": "smoobu",
   "version": "1.0.1",
   "description": "A simple library to access the Smoobu Host API",
-  "#main": "lib/smoobu.js",
-  "main": "src/smoobu.coffee",
+  "main": "lib/smoobu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
