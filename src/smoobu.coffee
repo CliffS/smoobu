@@ -117,7 +117,7 @@ class Smoobu
         result = await @getBookings params
         bookings.push result.bookings...
         params.page = result.page + 1
-        break if result.page is result.page_count
+        break if result.page > result.page_count
       bookings
 
   reservation: (id) ->
