@@ -48,6 +48,7 @@ const smoobu = new Smoobu(API_KEY);
 be passed in as a second argument.  This is currently experimental
 and will only work with the forked version of `bent`.~~
 
+
 ## Methods
 
 Each method in this library maps to a function in the Smoobu API. Please
@@ -192,3 +193,11 @@ smoobu.setRates(rate, apartment);
 Note that both arguments to `setRates()` can be singletons or arrays.
 Thus you can set the rates for multiple periods on multiple apartments,
 if you wish.
+
+## Breaking changes
+
+### v2.0.0
+
+The proxy server is no longer supported as [bent] does not seem to
+wish to support it.
+
