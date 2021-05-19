@@ -1,3 +1,5 @@
 src/
 smoobu.json
+coffeelint.json
 *.coffee
+.github
