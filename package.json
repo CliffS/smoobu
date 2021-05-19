@@ -30,6 +30,6 @@
     "coffeescript": "^2.5.1"
   },
   "dependencies": {
-    "bent": "github:CliffS/bent"
+    "bent": "^7.3.12"
   }
 }

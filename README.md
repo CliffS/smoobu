@@ -44,9 +44,9 @@ console.log(`User ${user.id} is`, user.firstName, user.lastName);
 const smoobu = new Smoobu(API_KEY);
 ```
 
-If you wish to go through a proxy server, a proxy may
+~~If you wish to go through a proxy server, a proxy may
 be passed in as a second argument.  This is currently experimental
-and will only work with the forked version of `bent`.
+and will only work with the forked version of `bent`.~~
 
 ## Methods
 
