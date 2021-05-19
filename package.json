@@ -1,6 +1,6 @@
 {
   "name": "smoobu",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple library to access the Smoobu Host API",
   "main": "lib/smoobu.js",
   "scripts": {
